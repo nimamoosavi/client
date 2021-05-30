@@ -33,11 +33,6 @@
             <version>1.0.1-Released</version>
         </dependency>
         <dependency>
-            <groupId>com.nicico.cost</groupId>
-            <artifactId>crud</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
