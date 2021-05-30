@@ -6,7 +6,7 @@ import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
 import com.nicico.cost.framework.mapper.jackson.Mapper;
 import com.nicico.cost.framework.utility.request.ApplicationRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.retry.annotation.Retryable;
@@ -16,11 +16,10 @@ import org.springframework.web.client.ResourceAccessException;
 import java.io.Serializable;
 import java.util.List;
 
+@RequiredArgsConstructor
 public abstract class MicroClientImpl<S, R, I extends Serializable, U extends String> implements MicroClient<S, R, I, U> {
-    @Autowired
-    ApplicationRequest applicationRequest;
-    @Autowired
-    Mapper mapper;
+    private final ApplicationRequest applicationRequest;
+    private final Mapper mapper;
 
 
     @Override
@@ -29,7 +28,6 @@ public abstract class MicroClientImpl<S, R, I extends Serializable, U extends St
         ResponseEntity<String> objectResponseEntity = applicationRequest.httpRequest(u, HttpMethod.POST, null, s, String.class);
         return mapper.jsonToObject(objectResponseEntity.getBody(), new TypeReference<BaseDTO<R>>() {
         });
-
     }
 
 
