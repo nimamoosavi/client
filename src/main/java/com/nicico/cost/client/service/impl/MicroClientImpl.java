@@ -29,6 +29,7 @@ public abstract class MicroClientImpl<S, R, I extends Serializable, U extends St
         ResponseEntity<String> objectResponseEntity = applicationRequest.httpRequest(u, HttpMethod.POST, null, s, String.class);
         return mapper.jsonToObject(objectResponseEntity.getBody(), new TypeReference<BaseDTO<R>>() {
         });
+
     }
 
 
