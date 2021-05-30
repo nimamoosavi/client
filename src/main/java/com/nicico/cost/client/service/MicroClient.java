@@ -14,9 +14,10 @@ import java.util.List;
  * @author nima
  * @version 1.0.1
  * @apiNote this class used for call Another Microservices and Used Retry And Recover for Fall Back
- * {@link com.nicico.cost.client.service.impl.Fallback},{@link com.nicico.cost.client.service.impl.MicroClientImpl}
+ * you can override FallBack Methode for Your Response but by Default Throw Exception in FallBack Methode
+ * {@link com.nicico.cost.client.service.impl.MicroClientImpl}
  */
-public interface MicroClient<S, R, I extends Serializable,U extends String> {
+public interface MicroClient<S, R, I extends Serializable,E extends RuntimeException,U extends String> {
 
 
     /**
