@@ -8,6 +8,7 @@ import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
 import com.nicico.cost.framework.mapper.jackson.Mapper;
 import com.nicico.cost.framework.service.exception.ApplicationException;
+import com.nicico.cost.framework.service.exception.ServiceException;
 import com.nicico.cost.framework.utility.request.ApplicationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
@@ -21,9 +22,9 @@ import java.io.Serializable;
 import java.util.List;
 
 @RequiredArgsConstructor
-public abstract class MicroClientImpl<S, R, I extends Serializable, E extends RuntimeException, U extends String> implements MicroClient<S, R, I, E, U> {
+public abstract class MicroClientImpl<S, R, I extends Serializable, U extends String> implements MicroClient<S, R, I, U> {
     private final ApplicationRequest applicationRequest;
-    private final ApplicationException<E> applicationException;
+    private final ApplicationException<ServiceException> applicationException;
     private final Mapper mapper;
 
 

@@ -17,7 +17,7 @@ import java.util.List;
  * you can override FallBack Methode for Your Response but by Default Throw Exception in FallBack Methode
  * {@link com.nicico.cost.client.service.impl.MicroClientImpl}
  */
-public interface MicroClient<S, R, I extends Serializable,E extends RuntimeException,U extends String> {
+public interface MicroClient<S, R, I extends Serializable,U extends String> {
 
 
     /**
