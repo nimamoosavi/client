@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nicico.cost</groupId>
-    <artifactId>client</artifactId>
+    <artifactId>micro-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>client</name>
     <description>Microservice-Client project for Connect To Another Microservice</description>
