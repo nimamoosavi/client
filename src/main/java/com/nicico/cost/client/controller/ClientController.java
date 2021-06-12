@@ -1,6 +1,5 @@
 package com.nicico.cost.client.controller;
 
-import com.nicico.cost.client.service.ClientService;
 import com.nicico.cost.client.service.impl.MicroClientService;
 import com.nicico.cost.framework.anotations.Log;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
