@@ -59,7 +59,7 @@ public interface ClientService<S, R, I extends Serializable> {
 
     /**
      * @return BaseDTO<List < R>> the list of response view model Data
-     * @apiNote thi method used for get all data from Another Microservices that you must know that the cost of this method is very expensive
+     * @apiNote this method used for get all data from Another Microservices that you must know that the cost of this method is very expensive
      * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
      */
     BaseDTO<List<R>> getAll();
@@ -90,7 +90,7 @@ public interface ClientService<S, R, I extends Serializable> {
     /**
      * @param page     is the number of page you need to fetch
      * @param pageSize is the sizable page of data
-     * @param orders   orders is the list of fields and your direction such as Asc and Desc
+     * @param orders  is the list of fields and your direction such as Asc and Desc
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      * @apiNote this method call count method and return the count of data
      */
