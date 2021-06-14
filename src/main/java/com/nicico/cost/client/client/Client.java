@@ -1,7 +1,7 @@
 package com.nicico.cost.client.client;
 
 import com.nicico.cost.framework.domain.dto.BaseDTO;
-import com.nicico.cost.framework.utility.request.ApplicationRequest;
+import com.nicico.cost.framework.utility.RequestUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.retry.annotation.Retryable;
@@ -15,7 +15,7 @@ import static com.nicico.cost.framework.service.GeneralResponse.successCustomRes
 
 public abstract class Client<S, I extends Serializable> {
     @Autowired
-    private ApplicationRequest applicationRequest;
+    private RequestUtility applicationRequest;
 
     private String pathUrl;
 
