@@ -3,6 +3,7 @@ package com.nicico.cost.client.service;
 import com.nicico.cost.client.client.Client;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
+import com.nicico.cost.framework.packages.crud.view.Sort;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -77,7 +78,7 @@ public interface ClientService<S, R, I extends Serializable> {
      * @param orders   orders is the list of fields and your direction such as Asc and Desc
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      */
-    BaseDTO<PageDTO<List<R>>> findListByPagination(Integer page, Integer pageSize, String orders);
+    BaseDTO<PageDTO<List<R>>> findListByPagination(Integer page, Integer pageSize,  List<Sort> orders);
 
     /**
      * @param page     is the number of page you need to fetch
@@ -94,7 +95,7 @@ public interface ClientService<S, R, I extends Serializable> {
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      * @apiNote this method call count method and return the count of data
      */
-    BaseDTO<PageDTO<List<R>>> findByPaginationByDetail(Integer page, Integer pageSize, String orders);
+    BaseDTO<PageDTO<List<R>>> findByPaginationByDetail(Integer page, Integer pageSize,  List<Sort> orders);
 
     /**
      * @return the number of data

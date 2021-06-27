@@ -7,6 +7,7 @@ import com.nicico.cost.client.service.ClientService;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
 import com.nicico.cost.framework.mapper.jackson.Mapper;
+import com.nicico.cost.framework.packages.crud.view.Sort;
 import com.nicico.cost.framework.service.exception.ApplicationException;
 import com.nicico.cost.framework.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +99,7 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
      * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
      */
     public BaseDTO<List<R>> getAll() {
-        String response = client.getAll().getData();
+        String response = client.findAll().getData();
         return mapper.jsonToObject(response, new TypeReference<BaseDTO<List<R>>>() {
         });
     }
@@ -109,7 +110,7 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      */
     public BaseDTO<PageDTO<List<R>>> findListByPagination(Integer page, Integer pageSize) {
-        String response = client.findListByPagination(page, pageSize).getData();
+        String response = client.findAll(page, pageSize).getData();
         return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
         });
     }
@@ -120,8 +121,8 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
      * @param orders   orders is the list of fields and your direction such as Asc and Desc
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      */
-    public BaseDTO<PageDTO<List<R>>> findListByPagination(Integer page, Integer pageSize, String orders) {
-        String response = client.findListByPagination(page, pageSize, orders).getData();
+    public BaseDTO<PageDTO<List<R>>> findListByPagination(Integer page, Integer pageSize, List<Sort> orders) {
+        String response = client.findAll(page, pageSize, orders).getData();
         return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
         });
     }
@@ -134,7 +135,7 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
      * @apiNote this method call count method and return the count of data
      */
     public BaseDTO<PageDTO<List<R>>> findByPaginationByDetail(Integer page, Integer pageSize) {
-        String response = client.findListByPagination(page, pageSize).getData();
+        String response = client.findAllWithTotal(page, pageSize).getData();
         return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
         });
     }
@@ -146,8 +147,8 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      * @apiNote this method call count method and return the count of data
      */
-    public BaseDTO<PageDTO<List<R>>> findByPaginationByDetail(Integer page, Integer pageSize, String orders) {
-        String response = client.findListByPagination(page, pageSize, orders).getData();
+    public BaseDTO<PageDTO<List<R>>> findByPaginationByDetail(Integer page, Integer pageSize,  List<Sort> orders) {
+        String response = client.findAllWithTotal(page, pageSize, orders).getData();
         return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
         });
     }

@@ -1,6 +1,7 @@
 package com.nicico.cost.client.client;
 
 import com.nicico.cost.framework.domain.dto.BaseDTO;
+import com.nicico.cost.framework.packages.crud.view.Sort;
 import com.nicico.cost.framework.utility.RequestUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -10,6 +11,7 @@ import org.springframework.web.client.ResourceAccessException;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 import static com.nicico.cost.framework.service.GeneralResponse.successCustomResponse;
 
@@ -60,37 +62,37 @@ public abstract class Client<S, I extends Serializable> {
     }
 
     @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> getAll() {
+    public BaseDTO<String> findAll() {
         String url = pathUrl.concat("/all");
         return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.GET, null, null, String.class).getBody());
     }
 
 
     @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> findListByPagination(Integer page, Integer pageSize) {
+    public BaseDTO<String> findAll(Integer page, Integer pageSize) {
         String url = pathUrl.concat("/all/pagination?page=").concat(page.toString()).concat("&pageSize=").concat(pageSize.toString());
         return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.GET, null, null, String.class).getBody());
     }
 
 
     @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> findListByPagination(Integer page, Integer pageSize, String orders) {
-        String url = pathUrl.concat("/all/pagination?page=").concat(page.toString()).concat("&pageSize=").concat(pageSize.toString());
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.POST, null, orders, String.class).getBody());
+    public BaseDTO<String> findAll(Integer page, Integer pageSize, List<Sort> sorts) {
+        String url = pathUrl.concat("/all/pagination/sort?page=").concat(page.toString()).concat("&pageSize=").concat(pageSize.toString());
+        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.POST, null, sorts, String.class).getBody());
     }
 
     @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> findByPaginationByDetail(Integer page, Integer pageSize) {
-        String url = pathUrl.concat("/all/pagination/detail?page=").concat(page.toString()).concat("&pageSize=").concat(pageSize.toString());
+    public BaseDTO<String> findAllWithTotal(Integer page, Integer pageSize) {
+        String url = pathUrl.concat("/all/pagination-total?page=").concat(page.toString()).concat("&pageSize=").concat(pageSize.toString());
         return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.GET, null, null, String.class).getBody());
 
     }
 
 
     @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> findByPaginationByDetail(Integer page, Integer pageSize, String orders) {
-        String url = pathUrl.concat("/all/pagination/detail?page=").concat(page.toString()).concat("&pageSize=").concat(pageSize.toString());
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.POST, null, orders, String.class).getBody());
+    public BaseDTO<String> findAllWithTotal(Integer page, Integer pageSize, List<Sort> sorts) {
+        String url = pathUrl.concat("/all/pagination-total/sort?page=").concat(page.toString()).concat("&pageSize=").concat(pageSize.toString());
+        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.POST, null, sorts, String.class).getBody());
 
     }
 
