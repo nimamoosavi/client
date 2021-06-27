@@ -19,7 +19,7 @@ public abstract class Client<S, I extends Serializable> {
     @Autowired
     private RequestUtility applicationRequest;
 
-    private String pathUrl;
+    public String pathUrl;
 
     public Client(String pathUrl) {
         this.pathUrl = pathUrl;
