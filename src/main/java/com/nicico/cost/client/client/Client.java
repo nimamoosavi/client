@@ -17,7 +17,7 @@ import static com.nicico.cost.framework.service.GeneralResponse.successCustomRes
 
 public abstract class Client<S, I extends Serializable> {
     @Autowired
-    private RequestUtility applicationRequest;
+    public RequestUtility applicationRequest;
 
     public String pathUrl;
 

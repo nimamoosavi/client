@@ -32,7 +32,7 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
     @Autowired
     public ApplicationException<ServiceException> applicationException;
     @Autowired
-    private Mapper mapper;
+    public Mapper mapper;
 
 
     /**
