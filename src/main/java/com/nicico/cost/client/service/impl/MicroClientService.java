@@ -2,6 +2,7 @@ package com.nicico.cost.client.service.impl;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.nicico.cost.client.client.Client;
 import com.nicico.cost.client.service.ClientService;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
@@ -12,8 +13,10 @@ import com.nicico.cost.framework.service.exception.ApplicationException;
 import com.nicico.cost.framework.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -33,7 +36,13 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
     public ApplicationException<ServiceException> applicationException;
     @Autowired
     public Mapper mapper;
+    private JavaType rType;
+    @PostConstruct
+    void init(){
+        ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
+        this.rType =mapper.castToJavaType(BaseDTO.class,(Class<R>) type.getActualTypeArguments()[1]);
 
+    }
 
     /**
      * @param s is the Request view Model that you can save it another microservices
@@ -42,8 +51,7 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
      */
     public BaseDTO<R> create(@NotNull S s) {
         String response = client.create(s).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<R>>() {
-        });
+        return mapper.jsonToObject(response, rType);
     }
 
 
@@ -55,8 +63,7 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
      */
     public BaseDTO<R> update(@NotNull S s, @NotNull I id) {
         String response = client.update(s, id).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<R>>() {
-        });
+        return mapper.jsonToObject(response, rType);
     }
 
     /**
@@ -78,8 +85,7 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
      */
     public BaseDTO<R> findById(@NotNull I id) {
         String response = client.findById(id).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<R>>() {
-        });
+        return mapper.jsonToObject(response,rType);
     }
 
     /**
