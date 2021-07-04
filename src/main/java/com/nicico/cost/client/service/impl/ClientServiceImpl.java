@@ -40,7 +40,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
     @PostConstruct
     void init(){
         ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-        this.rType =mapper.castToJavaType(BaseDTO.class,(Class<R>) type.getActualTypeArguments()[1]);
+        this.rType =mapper.castToJavaType(BaseDTO.class,type.getActualTypeArguments()[1].getClass());
     }
 
     /**
@@ -72,6 +72,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      */
     public BaseDTO<Boolean> deleteById(@NotNull I id) {
         String response = client.deleteById(id).getData();
+        mapper.jsonToObject(response, rType);
         return mapper.jsonToObject(response, new TypeReference<BaseDTO<Boolean>>() {
         });
     }
