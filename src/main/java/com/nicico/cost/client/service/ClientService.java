@@ -1,6 +1,5 @@
 package com.nicico.cost.client.service;
 
-import com.nicico.cost.client.client.Client;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
 import com.nicico.cost.framework.packages.crud.view.Sort;
@@ -17,7 +16,7 @@ import java.util.List;
  * @version 1.0.1
  * @apiNote this class used for call Another Microservices and Used Retry And Recover for Fall Back
  * you can override FallBack Methode for Your Response but by Default Throw Exception in FallBack Methode
- * {@link Client}
+ * {@link com.nicico.cost.client.client.Client}
  */
 public interface ClientService<S, R, I extends Serializable> {
 

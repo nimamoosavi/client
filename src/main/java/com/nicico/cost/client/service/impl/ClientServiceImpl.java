@@ -28,7 +28,7 @@ import java.util.List;
  * @implNote @Log {@link com.nicico.cost.framework.anotations.Log} Used For Log But if you need to Used It you must add Audit Library to Your Project
  * @apiNote this class is BaseService that you can extended your Service Class and you must create bean of it
  */
-public abstract class MicroClientService<S, R, I extends Serializable> implements ClientService<S, R, I> {
+public abstract class ClientServiceImpl<S, R, I extends Serializable> implements ClientService<S, R, I> {
 
     @Autowired
     public Client<S, I> client;
@@ -41,7 +41,6 @@ public abstract class MicroClientService<S, R, I extends Serializable> implement
     void init(){
         ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
         this.rType =mapper.castToJavaType(BaseDTO.class,(Class<R>) type.getActualTypeArguments()[1]);
-
     }
 
     /**

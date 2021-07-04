@@ -1,6 +1,6 @@
 package com.nicico.cost.client.controller;
 
-import com.nicico.cost.client.service.impl.MicroClientService;
+import com.nicico.cost.client.service.ClientService;
 import com.nicico.cost.framework.anotations.Log;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
@@ -30,7 +30,7 @@ import static com.nicico.cost.framework.config.general.GeneralStatic.*;
 public abstract class ClientController<S, R, I extends Serializable> {
 
     @Autowired
-    public MicroClientService<S, R, I> microClient;
+    public ClientService<S, R, I> clientService;
 
     /**
      * @param s is the object of request model
@@ -42,7 +42,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @PostMapping
     public ResponseEntity<BaseDTO<R>> create(@Valid @RequestBody S s) {
-        return new ResponseEntity<>(microClient.create(s), HttpStatus.CREATED);
+        return new ResponseEntity<>(clientService.create(s), HttpStatus.CREATED);
     }
 
     /**
@@ -56,7 +56,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @PutMapping
     public ResponseEntity<BaseDTO<R>> update(@Valid @RequestBody S s, @Valid @RequestParam I id) {
-        return new ResponseEntity<>(microClient.update(s, id), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.update(s, id), HttpStatus.OK);
     }
 
     /**
@@ -69,7 +69,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @DeleteMapping
     public ResponseEntity<BaseDTO<Boolean>> deleteById(@Valid @RequestParam I id) {
-        return new ResponseEntity<>(microClient.deleteById(id), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.deleteById(id), HttpStatus.OK);
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @GetMapping
     public ResponseEntity<BaseDTO<R>> findByID(@Valid @RequestParam I id) {
-        return new ResponseEntity<>(microClient.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.findById(id), HttpStatus.OK);
     }
 
 
@@ -96,7 +96,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @GetMapping(value = "/all")
     public ResponseEntity<BaseDTO<List<R>>> findAll() {
-        return new ResponseEntity<>(microClient.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.getAll(), HttpStatus.OK);
     }
 
     /**
@@ -109,7 +109,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @GetMapping(value = "/all/pagination")
     public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findListByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize) {
-        return new ResponseEntity<>(microClient.findListByPagination(page, pageSize), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.findListByPagination(page, pageSize), HttpStatus.OK);
     }
 
     /**
@@ -123,7 +123,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @PostMapping(value = "/all/pagination/sort")
     public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findAllByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize, @RequestBody List<Sort> orders) {
-        return new ResponseEntity<>(microClient.findListByPagination(page, pageSize, orders), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.findListByPagination(page, pageSize, orders), HttpStatus.OK);
     }
 
     /**
@@ -136,7 +136,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @GetMapping(value = "/all/pagination-total")
     public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize) {
-        return new ResponseEntity<>(microClient.findListByPagination(page, pageSize), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.findListByPagination(page, pageSize), HttpStatus.OK);
     }
 
     /**
@@ -150,7 +150,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @PostMapping(value = "/all/pagination-total/sort")
     public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize, @RequestBody  List<Sort> orders) {
-        return new ResponseEntity<>(microClient.findByPaginationByDetail(page, pageSize, orders), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.findByPaginationByDetail(page, pageSize, orders), HttpStatus.OK);
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @GetMapping(value = "/exists/ById")
     public ResponseEntity<BaseDTO<Boolean>> existsById(@Valid @RequestParam I id) {
-        return new ResponseEntity<>(microClient.existsById(id), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.existsById(id), HttpStatus.OK);
     }
 
     /**
@@ -174,7 +174,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @GetMapping(value = "/count")
     public ResponseEntity<BaseDTO<Long>> count() {
-        return new ResponseEntity<>(microClient.count(), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.count(), HttpStatus.OK);
     }
 
 }
