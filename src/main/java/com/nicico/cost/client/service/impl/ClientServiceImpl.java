@@ -40,7 +40,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
     @PostConstruct
     void init(){
         ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-        this.rType =mapper.castToJavaType(BaseDTO.class,type.getActualTypeArguments()[1].getClass());
+        this.rType =mapper.castToJavaType(BaseDTO.class,(Class<?>)type.getActualTypeArguments()[1]);
     }
 
     /**
