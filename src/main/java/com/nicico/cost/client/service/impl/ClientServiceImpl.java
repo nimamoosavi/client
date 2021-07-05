@@ -3,6 +3,7 @@ package com.nicico.cost.client.service.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nicico.cost.client.client.Client;
 import com.nicico.cost.client.service.ClientService;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
@@ -36,11 +37,16 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
     public ApplicationException<ServiceException> applicationException;
     @Autowired
     public Mapper mapper;
+    @Autowired
+    public ObjectMapper objectMapper;
     private JavaType rType;
+    private JavaType rListType;
+
     @PostConstruct
-    void init(){
+    void init() {
         ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-        this.rType =mapper.castToJavaType(BaseDTO.class,(Class<?>)type.getActualTypeArguments()[1]);
+        this.rType = mapper.castToJavaType(BaseDTO.class, (Class<?>) type.getActualTypeArguments()[1]);
+        this.rListType = objectMapper.getTypeFactory().constructCollectionType(List.class, (Class<?>) type.getActualTypeArguments()[1]);
     }
 
     /**
@@ -106,8 +112,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      */
     public BaseDTO<List<R>> getAll() {
         String response = client.findAll().getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<List<R>>>() {
-        });
+        return mapper.jsonToObject(response,rListType);
     }
 
     /**
