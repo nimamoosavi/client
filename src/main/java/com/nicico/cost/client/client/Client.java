@@ -1,6 +1,7 @@
 package com.nicico.cost.client.client;
 
 import com.nicico.cost.framework.domain.dto.BaseDTO;
+import com.nicico.cost.framework.packages.crud.view.Query;
 import com.nicico.cost.framework.packages.crud.view.Sort;
 
 import javax.validation.constraints.NotNull;
@@ -21,13 +22,13 @@ public interface Client<S, I extends Serializable> {
 
     BaseDTO<String> findAll();
 
+    BaseDTO<String> findAll(Query query);
+
+    BaseDTO<String> findAll(Integer page, Integer pageSize, Query query);
+
     BaseDTO<String> findAll(Integer page, Integer pageSize);
 
-    BaseDTO<String> findAll(Integer page, Integer pageSize, List<Sort> sorts);
-
-    BaseDTO<String> findAllWithTotal(Integer page, Integer pageSize);
-
-    BaseDTO<String> findAllWithTotal(Integer page, Integer pageSize, List<Sort> sorts);
-
     BaseDTO<String> count();
+
+    BaseDTO<String> count(Query query);
 }

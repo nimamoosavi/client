@@ -9,7 +9,7 @@ import com.nicico.cost.client.service.ClientService;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
 import com.nicico.cost.framework.mapper.jackson.Mapper;
-import com.nicico.cost.framework.packages.crud.view.Sort;
+import com.nicico.cost.framework.packages.crud.view.Query;
 import com.nicico.cost.framework.service.exception.ApplicationException;
 import com.nicico.cost.framework.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,17 +110,28 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * @apiNote thi method used for get all data from Another Microservices that you must know that the cost of this method is very expensive
      * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
      */
-    public BaseDTO<List<R>> getAll() {
+    public BaseDTO<List<R>> findAll() {
         String response = client.findAll().getData();
-        return mapper.jsonToObject(response,rListType);
+        return mapper.jsonToObject(response, rListType);
+    }
+
+    /**
+     * @return BaseDTO<List < R>> the list of response view model Data
+     * @apiNote thi method used for get all data from Another Microservices that you must know that the cost of this method is very expensive
+     * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
+     */
+    public BaseDTO<List<R>> findAll(Query query) {
+        String response = client.findAll().getData();
+        return mapper.jsonToObject(response, rListType);
     }
 
     /**
      * @param page     is the number of page you need to fetch
      * @param pageSize is the sizable page of data
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
+     * @apiNote this method call count method and return the count of data
      */
-    public BaseDTO<PageDTO<List<R>>> findListByPagination(Integer page, Integer pageSize) {
+    public BaseDTO<PageDTO<List<R>>> findAll(Integer page, Integer pageSize) {
         String response = client.findAll(page, pageSize).getData();
         return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
         });
@@ -129,37 +140,12 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
     /**
      * @param page     is the number of page you need to fetch
      * @param pageSize is the sizable page of data
-     * @param orders   orders is the list of fields and your direction such as Asc and Desc
-     * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
-     */
-    public BaseDTO<PageDTO<List<R>>> findListByPagination(Integer page, Integer pageSize, List<Sort> orders) {
-        String response = client.findAll(page, pageSize, orders).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
-        });
-    }
-
-
-    /**
-     * @param page     is the number of page you need to fetch
-     * @param pageSize is the sizable page of data
+     * @param query    orders is the list of fields and your direction such as Asc and Desc
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      * @apiNote this method call count method and return the count of data
      */
-    public BaseDTO<PageDTO<List<R>>> findByPaginationByDetail(Integer page, Integer pageSize) {
-        String response = client.findAllWithTotal(page, pageSize).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
-        });
-    }
-
-    /**
-     * @param page     is the number of page you need to fetch
-     * @param pageSize is the sizable page of data
-     * @param orders   orders is the list of fields and your direction such as Asc and Desc
-     * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
-     * @apiNote this method call count method and return the count of data
-     */
-    public BaseDTO<PageDTO<List<R>>> findByPaginationByDetail(Integer page, Integer pageSize,  List<Sort> orders) {
-        String response = client.findAllWithTotal(page, pageSize, orders).getData();
+    public BaseDTO<PageDTO<List<R>>> findAll(Integer page, Integer pageSize, Query query) {
+        String response = client.findAll(page, pageSize, query).getData();
         return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
         });
     }
@@ -170,6 +156,16 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      */
     public BaseDTO<Long> count() {
         String response = client.count().getData();
+        return mapper.jsonToObject(response, new TypeReference<BaseDTO<Long>>() {
+        });
+    }
+
+    /**
+     * @return the number of data
+     * @apiNote this method used for count of data objects
+     */
+    public BaseDTO<Long> count(Query query) {
+        String response = client.count(query).getData();
         return mapper.jsonToObject(response, new TypeReference<BaseDTO<Long>>() {
         });
     }

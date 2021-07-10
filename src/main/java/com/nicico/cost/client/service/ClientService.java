@@ -2,6 +2,7 @@ package com.nicico.cost.client.service;
 
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
+import com.nicico.cost.framework.packages.crud.view.Query;
 import com.nicico.cost.framework.packages.crud.view.Sort;
 
 import javax.validation.constraints.NotNull;
@@ -57,48 +58,47 @@ public interface ClientService<S, R, I extends Serializable> {
      */
     BaseDTO<Boolean> existsById(@NotNull I id);
 
+
     /**
      * @return BaseDTO<List < R>> the list of response view model Data
      * @apiNote this method used for get all data from Another Microservices that you must know that the cost of this method is very expensive
      * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
      */
-    BaseDTO<List<R>> getAll();
+    BaseDTO<List<R>> findAll();
+
+    /**
+     * @return BaseDTO<List < R>> the list of response view model Data
+     * @apiNote this method used for get all data from Another Microservices that you must know that the cost of this method is very expensive
+     * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
+     */
+    BaseDTO<List<R>> findAll(Query query);
 
     /**
      * @param page     is the number of page you need to fetch
      * @param pageSize is the sizable page of data
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      */
-    BaseDTO<PageDTO<List<R>>> findListByPagination(Integer page, Integer pageSize);
+    BaseDTO<PageDTO<List<R>>> findAll(Integer page, Integer pageSize);
 
     /**
      * @param page     is the number of page you need to fetch
      * @param pageSize is the sizable page of data
-     * @param orders   orders is the list of fields and your direction such as Asc and Desc
+     * @param query   orders is the list of fields and your direction such as Asc and Desc
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      */
-    BaseDTO<PageDTO<List<R>>> findListByPagination(Integer page, Integer pageSize,  List<Sort> orders);
+    BaseDTO<PageDTO<List<R>>> findAll(Integer page, Integer pageSize,  Query query);
 
-    /**
-     * @param page     is the number of page you need to fetch
-     * @param pageSize is the sizable page of data
-     * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
-     * @apiNote this method call count method and return the count of data
-     */
-    BaseDTO<PageDTO<List<R>>> findByPaginationByDetail(Integer page, Integer pageSize);
 
-    /**
-     * @param page     is the number of page you need to fetch
-     * @param pageSize is the sizable page of data
-     * @param orders  is the list of fields and your direction such as Asc and Desc
-     * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
-     * @apiNote this method call count method and return the count of data
-     */
-    BaseDTO<PageDTO<List<R>>> findByPaginationByDetail(Integer page, Integer pageSize,  List<Sort> orders);
 
     /**
      * @return the number of data
      * @apiNote this method used for count of data objects
      */
     BaseDTO<Long> count();
+
+    /**
+     * @return the number of data
+     * @apiNote this method used for count of data objects
+     */
+    BaseDTO<Long> count(Query query);
 }

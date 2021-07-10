@@ -4,7 +4,7 @@ import com.nicico.cost.client.service.ClientService;
 import com.nicico.cost.framework.anotations.Log;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
-import com.nicico.cost.framework.packages.crud.view.Sort;
+import com.nicico.cost.framework.packages.crud.view.Query;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,7 +96,21 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @GetMapping(value = "/all")
     public ResponseEntity<BaseDTO<List<R>>> findAll() {
-        return new ResponseEntity<>(clientService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.findAll(), HttpStatus.OK);
+    }
+
+
+    /**
+     * @return ResponseEntity<BaseDTO < List < R>>> that R the view model you must add to controller
+     * @apiNote used for getAll data from data base , you must know that the cost of this method is high and you can used
+     * findListByPagination Or findByPagination for fetch data
+     */
+    @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
+            @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
+            @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
+    @GetMapping(value = "/all/query")
+    public ResponseEntity<BaseDTO<List<R>>> findAllByQuery(Query query) {
+        return new ResponseEntity<>(clientService.findAll(query), HttpStatus.OK);
     }
 
     /**
@@ -108,49 +122,22 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @GetMapping(value = "/all/pagination")
-    public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findListByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize) {
-        return new ResponseEntity<>(clientService.findListByPagination(page, pageSize), HttpStatus.OK);
+    public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findAllByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize) {
+        return new ResponseEntity<>(clientService.findAll(page, pageSize), HttpStatus.OK);
     }
 
     /**
      * @param page     is the number of page you need to fetch
      * @param pageSize is the sizable page of data
-     * @param orders   is the list of fields and your direction such as Asc and Desc for Sorting
+     * @param query    is the list of fields and your direction such as Asc and Desc for Sorting for Sorting
      * @return ResponseEntity<BaseDTO < PageDTO < List < R>>>> this methode return PageDTO that is all data in it
      */
     @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
-    @PostMapping(value = "/all/pagination/sort")
-    public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findAllByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize, @RequestBody List<Sort> orders) {
-        return new ResponseEntity<>(clientService.findListByPagination(page, pageSize, orders), HttpStatus.OK);
-    }
-
-    /**
-     * @param page     is the number of page you need to fetch
-     * @param pageSize is the sizable page of data
-     * @return ResponseEntity<BaseDTO < PageDTO < List < R>>>> this methode return PageDTO that is all data in it
-     */
-    @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
-            @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
-            @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
-    @GetMapping(value = "/all/pagination-total")
-    public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize) {
-        return new ResponseEntity<>(clientService.findListByPagination(page, pageSize), HttpStatus.OK);
-    }
-
-    /**
-     * @param page     is the number of page you need to fetch
-     * @param pageSize is the sizable page of data
-     * @param orders   is the list of fields and your direction such as Asc and Desc for Sorting for Sorting
-     * @return ResponseEntity<BaseDTO < PageDTO < List < R>>>> this methode return PageDTO that is all data in it
-     */
-    @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
-            @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
-            @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
-    @PostMapping(value = "/all/pagination-total/sort")
-    public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize, @RequestBody  List<Sort> orders) {
-        return new ResponseEntity<>(clientService.findByPaginationByDetail(page, pageSize, orders), HttpStatus.OK);
+    @PostMapping(value = "/all/pagination/query")
+    public ResponseEntity<BaseDTO<PageDTO<List<R>>>> findByPagination(@Valid @RequestParam Integer page, @RequestParam Integer pageSize, @RequestBody Query query) {
+        return new ResponseEntity<>(clientService.findAll(page, pageSize, query), HttpStatus.OK);
     }
 
     /**
@@ -175,6 +162,19 @@ public abstract class ClientController<S, R, I extends Serializable> {
     @GetMapping(value = "/count")
     public ResponseEntity<BaseDTO<Long>> count() {
         return new ResponseEntity<>(clientService.count(), HttpStatus.OK);
+    }
+
+
+    /**
+     * @return the number of objects
+     * @apiNote this controller used for the count of data
+     */
+    @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
+            @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
+            @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
+    @GetMapping(value = "/count/query")
+    public ResponseEntity<BaseDTO<Long>> count(@RequestBody Query query) {
+        return new ResponseEntity<>(clientService.count(query), HttpStatus.OK);
     }
 
 }
