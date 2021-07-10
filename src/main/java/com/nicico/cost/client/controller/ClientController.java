@@ -172,7 +172,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
     @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
-    @GetMapping(value = "/count/query")
+    @PostMapping(value = "/count/query")
     public ResponseEntity<BaseDTO<Long>> countByQuery(@RequestBody Query query) {
         return new ResponseEntity<>(clientService.count(query), HttpStatus.OK);
     }
