@@ -76,9 +76,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      */
     public BaseDTO<Boolean> deleteById(@NotNull I id) {
         String response = client.deleteById(id).getData();
-        mapper.jsonToObject(response, rType);
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<Boolean>>() {
-        });
+        return mapper.jsonToObject(response, rType);
     }
 
 

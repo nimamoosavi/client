@@ -43,7 +43,7 @@ public abstract class ClientImpl<S, I extends Serializable> implements Client<S,
     @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
     public BaseDTO<String> deleteById(I id) {
         String url = pathUrl.concat("?id=").concat(id.toString());
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.POST, null, null, String.class).getBody());
+        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.DELETE, null, null, String.class).getBody());
     }
 
 
