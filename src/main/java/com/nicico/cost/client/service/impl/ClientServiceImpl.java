@@ -40,13 +40,11 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
     @Autowired
     public ObjectMapper objectMapper;
     private JavaType rType;
-    private JavaType rListType;
 
     @PostConstruct
     void init() {
         ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
         this.rType = mapper.castToJavaType(BaseDTO.class, (Class<?>) type.getActualTypeArguments()[1]);
-        this.rListType = objectMapper.getTypeFactory().constructCollectionType(List.class, (Class<?>) type.getActualTypeArguments()[1]);
     }
 
     /**
@@ -112,7 +110,8 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      */
     public BaseDTO<List<R>> findAll() {
         String response = client.findAll().getData();
-        return mapper.jsonToObject(response, rListType);
+        return mapper.jsonToObject(response, new TypeReference<BaseDTO<List<R>>>() {
+        });
     }
 
     /**
@@ -122,7 +121,8 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      */
     public BaseDTO<List<R>> findAll(Query query) {
         String response = client.findAll().getData();
-        return mapper.jsonToObject(response, rListType);
+        return mapper.jsonToObject(response, new TypeReference<BaseDTO<List<R>>>() {
+        });
     }
 
     /**
