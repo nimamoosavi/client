@@ -30,11 +30,10 @@ public interface ClientService<S, R, I extends Serializable> {
 
     /**
      * @param s  is the Request view Model that you can save it in Another Microservices
-     * @param id is the incrementalId of in Another Microservices
      * @return the result of view Model
      * @apiNote this method used for update Another Microservices
      */
-    BaseDTO<R> update(@NotNull S s, @NotNull I id);
+    BaseDTO<R> update(@NotNull S s);
 
     /**
      * @param id is the incrementalId of Another Microservices

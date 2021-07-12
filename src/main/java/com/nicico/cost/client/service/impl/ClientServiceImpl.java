@@ -60,12 +60,11 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
 
     /**
      * @param s  is the Request view Model that you can save it in Another Microservices
-     * @param id is the incrementalId of in Another Microservices
      * @return the result of view Model
      * @apiNote this method used for update Another Microservices
      */
-    public BaseDTO<R> update(@NotNull S s, @NotNull I id) {
-        String response = client.update(s, id).getData();
+    public BaseDTO<R> update(@NotNull S s) {
+        String response = client.update(s).getData();
         return mapper.jsonToObject(response, rType);
     }
 

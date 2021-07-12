@@ -55,8 +55,8 @@ public abstract class ClientController<S, R, I extends Serializable> {
             @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CLIENT_VERSION, value = CLIENT_VERSION, required = true, dataType = "string", paramType = "header")})
     @PutMapping
-    public ResponseEntity<BaseDTO<R>> update(@Valid @RequestBody S s, @Valid @RequestParam I id) {
-        return new ResponseEntity<>(clientService.update(s, id), HttpStatus.OK);
+    public ResponseEntity<BaseDTO<R>> update(@Valid @RequestBody S s) {
+        return new ResponseEntity<>(clientService.update(s), HttpStatus.OK);
     }
 
     /**

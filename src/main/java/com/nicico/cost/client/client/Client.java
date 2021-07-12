@@ -10,7 +10,7 @@ public interface Client<S, I extends Serializable> {
 
     BaseDTO<String> create(@NotNull S s);
 
-    BaseDTO<String> update(S s, I id);
+    BaseDTO<String> update(S s);
 
     BaseDTO<String> deleteById(I id);
 

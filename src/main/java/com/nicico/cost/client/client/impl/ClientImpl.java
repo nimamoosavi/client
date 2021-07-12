@@ -35,9 +35,8 @@ public abstract class ClientImpl<S, I extends Serializable> implements Client<S,
 
 
     @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> update(S s, I id) {
-        String url = pathUrl.concat("?id=").concat(id.toString());
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.POST, null, s, String.class).getBody());
+    public BaseDTO<String> update(S s) {
+        return successCustomResponse(applicationRequest.httpRequest(pathUrl, HttpMethod.PUT, null, s, String.class).getBody());
     }
 
     @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
