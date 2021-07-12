@@ -21,7 +21,7 @@ public abstract class ClientImpl<S, I extends Serializable> implements Client<S,
 
     public String pathUrl;
 
-    public ClientImpl(String pathUrl) {
+     public ClientImpl(String pathUrl) {
         this.pathUrl = pathUrl;
     }
 

@@ -3,7 +3,6 @@ package com.nicico.cost.client.service;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
 import com.nicico.cost.framework.packages.crud.view.Query;
-import com.nicico.cost.framework.packages.crud.view.Sort;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

@@ -2,11 +2,9 @@ package com.nicico.cost.client.client;
 
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.packages.crud.view.Query;
-import com.nicico.cost.framework.packages.crud.view.Sort;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 
 public interface Client<S, I extends Serializable> {
 
