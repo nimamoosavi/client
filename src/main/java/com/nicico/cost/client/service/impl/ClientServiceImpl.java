@@ -1,23 +1,17 @@
 package com.nicico.cost.client.service.impl;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nicico.cost.client.client.Client;
 import com.nicico.cost.client.service.ClientService;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
 import com.nicico.cost.framework.domain.dto.PageDTO;
-import com.nicico.cost.framework.mapper.jackson.Mapper;
 import com.nicico.cost.framework.packages.crud.view.Query;
 import com.nicico.cost.framework.service.exception.ApplicationException;
 import com.nicico.cost.framework.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -32,20 +26,10 @@ import java.util.List;
 public abstract class ClientServiceImpl<S, R, I extends Serializable> implements ClientService<S, R, I> {
 
     @Autowired
-    public Client<S, I> client;
+    public Client<S, R, I> client;
     @Autowired
     public ApplicationException<ServiceException> applicationException;
-    @Autowired
-    public Mapper mapper;
-    @Autowired
-    public ObjectMapper objectMapper;
-    private JavaType rType;
 
-    @PostConstruct
-    void init() {
-        ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-        this.rType = mapper.castToJavaType(BaseDTO.class, (Class<?>) type.getActualTypeArguments()[1]);
-    }
 
     /**
      * @param s is the Request view Model that you can save it another microservices
@@ -53,19 +37,17 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * @apiNote this method used for save data in another microservices
      */
     public BaseDTO<R> create(@NotNull S s) {
-        String response = client.create(s).getData();
-        return mapper.jsonToObject(response, rType);
+        return client.create(s);
     }
 
 
     /**
-     * @param s  is the Request view Model that you can save it in Another Microservices
+     * @param s is the Request view Model that you can save it in Another Microservices
      * @return the result of view Model
      * @apiNote this method used for update Another Microservices
      */
     public BaseDTO<R> update(@NotNull S s) {
-        String response = client.update(s).getData();
-        return mapper.jsonToObject(response, rType);
+        return client.update(s);
     }
 
     /**
@@ -74,9 +56,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * @apiNote this methode used for delete Data with the incremental Id
      */
     public BaseDTO<Boolean> deleteById(@NotNull I id) {
-        String response = client.deleteById(id).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<Boolean>>() {
-        });
+        return client.deleteById(id);
     }
 
 
@@ -86,8 +66,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * @apiNote this method used for fetch data from Another Microservices with the incremental Id of object
      */
     public BaseDTO<R> findById(@NotNull I id) {
-        String response = client.findById(id).getData();
-        return mapper.jsonToObject(response,rType);
+        return client.findById(id);
     }
 
     /**
@@ -96,9 +75,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * @apiNote used for to know that this incremental Id is in Another Microservices Or Not
      */
     public BaseDTO<Boolean> existsById(@NotNull I id) {
-        String response = client.existsById(id).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<Boolean>>() {
-        });
+        return client.existsById(id);
     }
 
     /**
@@ -107,9 +84,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
      */
     public BaseDTO<List<R>> findAll() {
-        String response = client.findAll().getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<List<R>>>() {
-        });
+        return client.findAll();
     }
 
     /**
@@ -118,9 +93,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
      */
     public BaseDTO<List<R>> findAll(Query query) {
-        String response = client.findAll().getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<List<R>>>() {
-        });
+        return client.findAll(query);
     }
 
     /**
@@ -129,10 +102,8 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      * @apiNote this method call count method and return the count of data
      */
-    public BaseDTO<PageDTO<List<R>>> findAll(Integer page, Integer pageSize) {
-        String response = client.findAll(page, pageSize).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
-        });
+    public BaseDTO<PageDTO<List<R>>> findAll(int page, int pageSize) {
+        return client.findAll(page, pageSize);
     }
 
     /**
@@ -142,10 +113,8 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      * @apiNote this method call count method and return the count of data
      */
-    public BaseDTO<PageDTO<List<R>>> findAll(Integer page, Integer pageSize, Query query) {
-        String response = client.findAll(page, pageSize, query).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<PageDTO<List<R>>>>() {
-        });
+    public BaseDTO<PageDTO<List<R>>> findAll(int page, int pageSize, Query query) {
+        return client.findAll(page, pageSize, query);
     }
 
     /**
@@ -153,9 +122,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * @apiNote this method used for count of data objects
      */
     public BaseDTO<Long> count() {
-        String response = client.count().getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<Long>>() {
-        });
+        return client.count();
     }
 
     /**
@@ -163,9 +130,7 @@ public abstract class ClientServiceImpl<S, R, I extends Serializable> implements
      * @apiNote this method used for count of data objects
      */
     public BaseDTO<Long> count(Query query) {
-        String response = client.count(query).getData();
-        return mapper.jsonToObject(response, new TypeReference<BaseDTO<Long>>() {
-        });
+        return client.count(query);
     }
 
 

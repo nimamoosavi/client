@@ -2,100 +2,71 @@ package com.nicico.cost.client.client.impl;
 
 import com.nicico.cost.client.client.Client;
 import com.nicico.cost.framework.domain.dto.BaseDTO;
+import com.nicico.cost.framework.domain.dto.PageDTO;
 import com.nicico.cost.framework.packages.crud.view.Query;
-import com.nicico.cost.framework.utility.RequestUtility;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.retry.annotation.Retryable;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
-import static com.nicico.cost.framework.service.GeneralResponse.successCustomResponse;
+public abstract class ClientImpl<S, R, I extends Serializable> implements Client<S, R, I> {
 
-public abstract class ClientImpl<S, I extends Serializable> implements Client<S, I> {
     @Autowired
-    public RequestUtility applicationRequest;
+    FeignClientImpl<S, R, I> feignClient;
 
-    public String pathUrl;
-
-     public ClientImpl(String pathUrl) {
-        this.pathUrl = pathUrl;
+    @Override
+    public BaseDTO<R> create(@NotNull S s) {
+        return feignClient.create(s).getBody();
     }
 
-
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    /*@HystrixCommand(fallbackMethod = "createFallBack",
-            commandProperties = {@HystrixProperty(name = "execution.isolation.strategy", value = "SEMAPHORE")})*/
-    public BaseDTO<String> create(@NotNull S s) {
-        return successCustomResponse(applicationRequest.httpRequest(pathUrl, HttpMethod.POST, null, s, String.class).getBody());
+    @Override
+    public BaseDTO<R> update(@NotNull S s) {
+        return feignClient.update(s).getBody();
     }
 
-
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> update(S s) {
-        return successCustomResponse(applicationRequest.httpRequest(pathUrl, HttpMethod.PUT, null, s, String.class).getBody());
+    @Override
+    public BaseDTO<Boolean> deleteById(I id) {
+        return feignClient.deleteById(id).getBody();
     }
 
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> deleteById(I id) {
-        String url = pathUrl.concat("?id=").concat(id.toString());
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.DELETE, null, null, String.class).getBody());
+    @Override
+    public BaseDTO<R> findById(I id) {
+        return feignClient.findById(id).getBody();
     }
 
-
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> findById(I id) {
-        String url = pathUrl.concat("?id=").concat(id.toString());
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.GET, null, null, String.class).getBody());
+    @Override
+    public BaseDTO<Boolean> existsById(I id) {
+        return feignClient.existsById(id).getBody();
     }
 
-
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> existsById(I id) {
-        String url = pathUrl.concat("/exists/ById?id=").concat(id.toString());
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.GET, null, null, String.class).getBody());
-
+    @Override
+    public BaseDTO<List<R>> findAll() {
+        return feignClient.findAll().getBody();
     }
 
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> findAll() {
-        String url = pathUrl.concat("/all");
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.GET, null, null, String.class).getBody());
+    @Override
+    public BaseDTO<List<R>> findAll(Query query) {
+        return feignClient.findAll(query).getBody();
     }
 
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> findAll(Query query) {
-        String url = pathUrl.concat("/all/query");
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.POST, null, query, String.class).getBody());
+    @Override
+    public BaseDTO<PageDTO<List<R>>> findAll(@NotNull int page, @NotNull int pageSize) {
+        return feignClient.findAll(page,pageSize).getBody();
     }
 
-
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> findAll(Integer page, Integer pageSize) {
-        String url = pathUrl.concat("/all/pagination?page=").concat(page.toString()).concat("&pageSize=").concat(pageSize.toString());
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.GET, null, null, String.class).getBody());
+    @Override
+    public BaseDTO<PageDTO<List<R>>> findAll(@NotNull int page, @NotNull int pageSize, Query query) {
+        return feignClient.findAll(page,pageSize,query).getBody();
     }
 
-
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> findAll(Integer page, Integer pageSize, Query query) {
-        String url = pathUrl.concat("/all/pagination/query?page=").concat(page.toString()).concat("&pageSize=").concat(pageSize.toString());
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.POST, null, query, String.class).getBody());
-
+    @Override
+    public BaseDTO<Long> count() {
+        return feignClient.count().getBody();
     }
 
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> count() {
-        String url = pathUrl.concat("/count");
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.GET, null, null, String.class).getBody());
-    }
-
-    @Retryable(value = {ResourceAccessException.class, HttpServerErrorException.class})
-    public BaseDTO<String> count(Query query) {
-        String url = pathUrl.concat("/count/query");
-        return successCustomResponse(applicationRequest.httpRequest(url, HttpMethod.POST, null, query, String.class).getBody());
+    @Override
+    public BaseDTO<Long> count(Query query) {
+        return feignClient.count().getBody();
     }
 }
