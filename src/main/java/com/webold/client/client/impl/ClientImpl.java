@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class ClientImpl<S, R, I extends Serializable> implements Client<S, R, I> {
 
     @Autowired
-    FeignClientImpl<S, R, I> feignClient;
+    public FeignClientImpl<S, R, I> feignClient;
 
     @Override
     public BaseDTO<R> create(@NotNull S s) {
