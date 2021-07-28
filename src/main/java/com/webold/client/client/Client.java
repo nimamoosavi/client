@@ -1,8 +1,8 @@
-package com.nicico.cost.client.client;
+package com.webold.client.client;
 
-import com.nicico.cost.framework.domain.dto.BaseDTO;
-import com.nicico.cost.framework.domain.dto.PageDTO;
-import com.nicico.cost.framework.packages.crud.view.Query;
+import com.webold.framework.domain.dto.BaseDTO;
+import com.webold.framework.domain.dto.PageDTO;
+import com.webold.framework.packages.crud.view.Query;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

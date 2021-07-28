@@ -1,10 +1,10 @@
-package com.nicico.cost.client.controller;
+package com.webold.client.controller;
 
-import com.nicico.cost.client.service.ClientService;
-import com.nicico.cost.framework.anotations.Log;
-import com.nicico.cost.framework.domain.dto.BaseDTO;
-import com.nicico.cost.framework.domain.dto.PageDTO;
-import com.nicico.cost.framework.packages.crud.view.Query;
+import com.webold.client.service.ClientService;
+import com.webold.framework.anotations.Log;
+import com.webold.framework.domain.dto.BaseDTO;
+import com.webold.framework.domain.dto.PageDTO;
+import com.webold.framework.packages.crud.view.Query;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 
-import static com.nicico.cost.framework.config.general.GeneralStatic.*;
+import static com.webold.framework.config.general.GeneralStatic.*;
 
 /**
  * @param <S> is request view model that you must create and added

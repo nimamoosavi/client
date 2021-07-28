@@ -1,13 +1,14 @@
-package com.nicico.cost.client.service.impl;
+package com.webold.client.service.impl;
 
 
-import com.nicico.cost.client.client.Client;
-import com.nicico.cost.client.service.ClientService;
-import com.nicico.cost.framework.domain.dto.BaseDTO;
-import com.nicico.cost.framework.domain.dto.PageDTO;
-import com.nicico.cost.framework.packages.crud.view.Query;
-import com.nicico.cost.framework.service.exception.ApplicationException;
-import com.nicico.cost.framework.service.exception.ServiceException;
+import com.webold.client.client.Client;
+import com.webold.client.service.ClientService;
+import com.webold.framework.domain.dto.BaseDTO;
+import com.webold.framework.domain.dto.PageDTO;
+import com.webold.framework.anotations.Log;
+import com.webold.framework.packages.crud.view.Query;
+import com.webold.framework.service.exception.ApplicationException;
+import com.webold.framework.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.NotNull;
@@ -20,7 +21,7 @@ import java.util.List;
  * @param <I> is the type of data base Identity class such as Long,String, ...
  * @author nima
  * @version 1.0.1
- * @implNote @Log {@link com.nicico.cost.framework.anotations.Log} Used For Log But if you need to Used It you must add Audit Library to Your Project
+ * @implNote @Log {@link Log} Used For Log But if you need to Used It you must add Audit Library to Your Project
  * @apiNote this class is BaseService that you can extended your Service Class and you must create bean of it
  */
 public abstract class ClientServiceImpl<S, R, I extends Serializable> implements ClientService<S, R, I> {

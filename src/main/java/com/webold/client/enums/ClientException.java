@@ -1,6 +1,6 @@
-package com.nicico.cost.client.enums;
+package com.webold.client.enums;
 
-import com.nicico.cost.framework.utility.view.Message;
+import com.webold.framework.utility.view.Message;
 
 public enum ClientException implements Message {
 
