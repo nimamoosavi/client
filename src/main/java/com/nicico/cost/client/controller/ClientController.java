@@ -47,7 +47,6 @@ public abstract class ClientController<S, R, I extends Serializable> {
 
     /**
      * @param s  is the object of request model
-     * @param id is your IncrementalId of DataBase
      * @return ResponseEntity<BaseDTO < R>> that R the view model you must add to controller
      * @apiNote this method save data to DataBase that you must implemented in repository layer
      */
