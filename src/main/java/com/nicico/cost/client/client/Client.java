@@ -19,7 +19,7 @@ public interface Client<S, R, I extends Serializable> {
 
 
     /**
-     * @param s  is the Request view Model that you can save it in Another Microservices
+     * @param s is the Request view Model that you can save it in Another Microservices
      * @return the result of view Model
      * @apiNote this method used for update Another Microservices
      */
@@ -71,12 +71,10 @@ public interface Client<S, R, I extends Serializable> {
     /**
      * @param page     is the number of page you need to fetch
      * @param pageSize is the sizable page of data
-     * @param query   orders is the list of fields and your direction such as Asc and Desc
+     * @param query    orders is the list of fields and your direction such as Asc and Desc
      * @return BaseDTO<PageDTO < List < R>>> this methode return PageDTO that is all data in it
      */
-    BaseDTO<PageDTO<List<R>>> findAll(int page, int pageSize,  Query query);
-
-
+    BaseDTO<PageDTO<List<R>>> findAll(int page, int pageSize, Query query);
 
     /**
      * @return the number of data

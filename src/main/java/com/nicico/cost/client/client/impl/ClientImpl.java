@@ -52,12 +52,12 @@ public abstract class ClientImpl<S, R, I extends Serializable> implements Client
 
     @Override
     public BaseDTO<PageDTO<List<R>>> findAll(@NotNull int page, @NotNull int pageSize) {
-        return feignClient.findAll(page,pageSize).getBody();
+        return feignClient.findAll(page, pageSize).getBody();
     }
 
     @Override
     public BaseDTO<PageDTO<List<R>>> findAll(@NotNull int page, @NotNull int pageSize, Query query) {
-        return feignClient.findAll(page,pageSize,query).getBody();
+        return feignClient.findAll(page, pageSize, query).getBody();
     }
 
     @Override
