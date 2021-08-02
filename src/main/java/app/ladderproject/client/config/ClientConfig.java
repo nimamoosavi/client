@@ -1,4 +1,4 @@
-package com.webold.client.config;
+package app.ladderproject.client.config;
 
 import com.webold.framework.utility.RequestUtility;
 import feign.RequestTemplate;

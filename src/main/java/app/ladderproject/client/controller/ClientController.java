@@ -1,6 +1,6 @@
-package com.webold.client.controller;
+package app.ladderproject.client.controller;
 
-import com.webold.client.service.ClientService;
+import app.ladderproject.client.service.ClientService;
 import com.webold.framework.anotations.Log;
 import com.webold.framework.domain.dto.BaseDTO;
 import com.webold.framework.domain.dto.PageDTO;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
-
-import static com.webold.framework.config.general.GeneralStatic.*;
 
 /**
  * @param <S> is request view model that you must create and added

@@ -1,4 +1,4 @@
-package com.webold.client.config;
+package app.ladderproject.client.config;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;

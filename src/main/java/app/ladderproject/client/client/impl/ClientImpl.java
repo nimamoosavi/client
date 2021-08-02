@@ -1,6 +1,6 @@
-package com.webold.client.client.impl;
+package app.ladderproject.client.client.impl;
 
-import com.webold.client.client.Client;
+import app.ladderproject.client.client.Client;
 import com.webold.framework.domain.dto.BaseDTO;
 import com.webold.framework.domain.dto.PageDTO;
 import com.webold.framework.packages.crud.view.Query;

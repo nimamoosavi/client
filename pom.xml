@@ -8,11 +8,11 @@
         <version>2.3.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.webold</groupId>
-    <artifactId>micro-client</artifactId>
+    <groupId>app.ladderproject</groupId>
+    <artifactId>crud-client</artifactId>
     <version>0.0.1-Released</version>
-    <name>client</name>
-    <description>Microservice-Client project for Connect To Another Microservice</description>
+    <name>crud-client</name>
+    <description>crud-client project for Connect To Another Microservice That Used Crud Project</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -47,8 +47,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.webold</groupId>
-            <artifactId>framework</artifactId>
+            <groupId>app.ladderproject</groupId>
+            <artifactId>core</artifactId>
             <version>1.0.1-Released</version>
         </dependency>
         <dependency>
@@ -101,22 +101,4 @@
             </plugin>
         </plugins>
     </build>
-
-        <distributionManagement>
-            <snapshotRepository>
-                <id>nexus-snapshots</id>
-                <url>http://devops01.icico.net.ir/nexus/repository/maven-snapshots/</url>
-            </snapshotRepository>
-            <repository>
-                <id>nexus-releases</id>
-                <url>http://devops01.icico.net.ir/nexus/repository/maven-releases/</url>
-            </repository>
-        </distributionManagement>
-        <repositories>
-            <repository>
-                <id>nexus-public</id>
-                <url>http://devops01.icico.net.ir/nexus/repository/maven-public/</url>
-            </repository>
-    </repositories>
-
 </project>

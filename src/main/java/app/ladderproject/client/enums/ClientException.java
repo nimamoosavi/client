@@ -1,4 +1,4 @@
-package com.webold.client.enums;
+package app.ladderproject.client.enums;
 
 import com.webold.framework.utility.view.Message;
 
