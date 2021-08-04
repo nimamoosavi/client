@@ -3,12 +3,11 @@ package app.ladderproject.client.service.impl;
 
 import app.ladderproject.client.client.Client;
 import app.ladderproject.client.service.ClientService;
-import com.webold.framework.domain.dto.BaseDTO;
-import com.webold.framework.domain.dto.PageDTO;
-import com.webold.framework.anotations.Log;
-import com.webold.framework.packages.crud.view.Query;
-import com.webold.framework.service.exception.ApplicationException;
-import com.webold.framework.service.exception.ServiceException;
+import app.ladderproject.core.domain.dto.BaseDTO;
+import app.ladderproject.core.domain.dto.PageDTO;
+import app.ladderproject.core.packages.crud.view.Query;
+import app.ladderproject.core.service.exception.ApplicationException;
+import app.ladderproject.core.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.NotNull;
@@ -21,7 +20,7 @@ import java.util.List;
  * @param <I> is the type of data base Identity class such as Long,String, ...
  * @author nima
  * @version 1.0.1
- * @implNote @Log {@link Log} Used For Log But if you need to Used It you must add Audit Library to Your Project
+ * @implNote @Log {@link app.ladderproject.core.anotations.Log} Used For Log But if you need to Used It you must add Audit Library to Your Project
  * @apiNote this class is BaseService that you can extended your Service Class and you must create bean of it
  */
 public abstract class ClientServiceImpl<S, R, I extends Serializable> implements ClientService<S, R, I> {

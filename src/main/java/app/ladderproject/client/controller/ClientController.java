@@ -1,10 +1,10 @@
 package app.ladderproject.client.controller;
 
 import app.ladderproject.client.service.ClientService;
-import com.webold.framework.anotations.Log;
-import com.webold.framework.domain.dto.BaseDTO;
-import com.webold.framework.domain.dto.PageDTO;
-import com.webold.framework.packages.crud.view.Query;
+import app.ladderproject.core.anotations.Log;
+import app.ladderproject.core.domain.dto.BaseDTO;
+import app.ladderproject.core.domain.dto.PageDTO;
+import app.ladderproject.core.packages.crud.view.Query;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,15 @@ import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 
+import static app.ladderproject.core.config.general.GeneralStatic.*;
+
 /**
  * @param <S> is request view model that you must create and added
  * @param <R> is the response view model that you can response it from service
- * @param <I> is the type of data base Identity class such as Long,String, ...
+ * @param <I> is the type of database Identity class such as Long,String, ...
  * @author nima
  * @version 1.0.1
- * @apiNote this class is baseController that you can extended your rest controller and you must create bean of it
+ * @apiNote this class is baseController that you can extend your rest controller, and you must create bean of it
  */
 @Log
 public abstract class ClientController<S, R, I extends Serializable> {
@@ -33,7 +35,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
     /**
      * @param s is the object of request model
      * @return ResponseEntity<BaseDTO < R>> that R the view model you must add to controller
-     * @apiNote this method save data to DataBase that you must implemented in repository layer
+     * @apiNote this method save data to DataBase that you must implement in repository layer
      */
     @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
@@ -44,9 +46,9 @@ public abstract class ClientController<S, R, I extends Serializable> {
     }
 
     /**
-     * @param s  is the object of request model
+     * @param s is the object of request model
      * @return ResponseEntity<BaseDTO < R>> that R the view model you must add to controller
-     * @apiNote this method save data to DataBase that you must implemented in repository layer
+     * @apiNote this method save data to DataBase that you must implement in repository layer
      */
     @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
@@ -59,7 +61,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
     /**
      * @param id is your IncrementalId of DataBase
      * @return ResponseEntity<BaseDTO < Boolean>> is the true or false result in BaseDTO pattern
-     * @apiNote used for delete an entity from data base
+     * @apiNote used for delete an entity from database
      */
     @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
@@ -72,7 +74,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
     /**
      * @param id is your IncrementalId of DataBase
      * @return ResponseEntity<BaseDTO < R>> that R the view model you must add to controller
-     * @apiNote this method used for get object from Identify number of data base
+     * @apiNote this method used for get object from Identify number of database
      */
     @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = CORRELATION_ID, value = CORRELATION_ID, required = true, dataType = "string", paramType = "header"),
@@ -85,7 +87,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
 
     /**
      * @return ResponseEntity<BaseDTO < List < R>>> that R the view model you must add to controller
-     * @apiNote used for getAll data from data base , you must know that the cost of this method is high and you can used
+     * @apiNote used for getAll data from database , you must know that the cost of this method is high, and you can use
      * findListByPagination Or findByPagination for fetch data
      */
     @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
@@ -99,7 +101,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
 
     /**
      * @return ResponseEntity<BaseDTO < List < R>>> that R the view model you must add to controller
-     * @apiNote used for getAll data from data base , you must know that the cost of this method is high and you can used
+     * @apiNote used for getAll data from database , you must know that the cost of this method is high, and you can use
      * findListByPagination Or findByPagination for fetch data
      */
     @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),
@@ -126,7 +128,7 @@ public abstract class ClientController<S, R, I extends Serializable> {
     /**
      * @param page     is the number of page you need to fetch
      * @param pageSize is the sizable page of data
-     * @param query    is the list of fields and your direction such as Asc and Desc for Sorting for Sorting
+     * @param query    is the list of fields and your direction such as Asc and Desc for Sorting
      * @return ResponseEntity<BaseDTO < PageDTO < List < R>>>> this methode return PageDTO that is all data in it
      */
     @ApiImplicitParams({@ApiImplicitParam(name = AUTHORIZATION, value = AUTHORIZATION, required = true, dataType = "string", paramType = "header"),

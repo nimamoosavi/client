@@ -1,9 +1,9 @@
 package app.ladderproject.client.service;
 
 import app.ladderproject.client.client.Client;
-import com.webold.framework.domain.dto.BaseDTO;
-import com.webold.framework.domain.dto.PageDTO;
-import com.webold.framework.packages.crud.view.Query;
+import app.ladderproject.core.domain.dto.BaseDTO;
+import app.ladderproject.core.domain.dto.PageDTO;
+import app.ladderproject.core.packages.crud.view.Query;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @param <S> is request view model that you must create and added
  * @param <R> is the response view model that you can response it from service
- * @param <I> is the type of data base Identity class such as Long,String, ...
+ * @param <I> is the type of database Identity class such as Long,String, ...
  * @author nima
  * @version 1.0.1
  * @apiNote this class used for call Another Microservices and Used Retry And Recover for Fall Back
@@ -61,14 +61,14 @@ public interface ClientService<S, R, I extends Serializable> {
     /**
      * @return BaseDTO<List < R>> the list of response view model Data
      * @apiNote this method used for get all data from Another Microservices that you must know that the cost of this method is very expensive
-     * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
+     * you can choose the method findListByPagination(...) and findByPagination(.) for fetch by pagination
      */
     BaseDTO<List<R>> findAll();
 
     /**
      * @return BaseDTO<List < R>> the list of response view model Data
      * @apiNote this method used for get all data from Another Microservices that you must know that the cost of this method is very expensive
-     * you can choose the method findListByPagination(...) and findByPagination(..) for fetch by pagination
+     * you can choose the method findListByPagination(...) and findByPagination(.) for fetch by pagination
      */
     BaseDTO<List<R>> findAll(Query query);
 

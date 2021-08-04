@@ -1,6 +1,7 @@
 package app.ladderproject.client.enums;
 
-import com.webold.framework.utility.view.Message;
+
+import app.ladderproject.core.utility.view.Message;
 
 public enum ClientException implements Message {
 
