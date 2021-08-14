@@ -8,7 +8,8 @@ The library works with Java 8+, ladder framework 1.0.1+
 
 ### Structure
 
-[[/images/client.jpg |"Micro client Diagram"]]
+![Crud client Diagram](https://github.com/nimamoosavi/client/wiki/images/client.jpg)
+
 
 this project create default Micro Client and used mapstruct library for casting object
 
