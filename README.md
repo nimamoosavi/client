@@ -4,7 +4,7 @@ you can know more than in client library
 ### Requirements
 The library works with Java 8+, ladder framework 1.0.1+
 
-## [FrameWork](https://github.com/nimamoosavi/core/wiki)
+## [Core](https://github.com/nimamoosavi/core/wiki)
 
 ### Structure
 
