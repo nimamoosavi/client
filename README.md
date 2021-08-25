@@ -1,5 +1,4 @@
-### this library used for aggregation and api gateWay that implement the base Controller methode for your client
-this structure use for connect to controller layer of Crud ladder project and another client
+this project use for connect to controller layer of Crud ladder project and another client
 
 ### See more about Crud ladder project
 ## [Crud](https://github.com/nimamoosavi/crud/wiki)
